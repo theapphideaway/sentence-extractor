@@ -3,7 +3,6 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 fun main(args: Array<String>){
-    //there are currently duplicates in the top words list
     val article  = "Поклонники Bravo были шокированы в понедельник новостью о том, что Ким Золчак подала на развод с Кроем Бирманном. Зрители наблюдали за их историей любви по телевидению почти десять лет, но похоже, что нам нужен Энди Коэн и камера, потому что один эксперт по правовым вопросам ожидает, что это обернется ужасом.\n" +
             " TMZ получил заявление Бирманна о разводе, и он добивается единоличной юридической и физической опеки над четырьмя детьми его и Золчака. Бывшая звезда «Настоящих домохозяек Атланты» в своем ходатайстве просила о первичной физической опеке и совместной юридической опеке. Знаменитый адвокат по разводам Шарлотта Кристиан сообщила Yahoo, что Бирманн отправляет сообщение с документом.\n" +
 
@@ -23,7 +22,8 @@ fun main(args: Array<String>){
             "Коэн, который хорошо знает бывшую пару, сказал, что был «очень удивлен» этой новостью.\n" +
             "«Я был очень удивлен. Это была не та новость, которую я когда-либо ожидал получить. Они казались такими влюбленными и просто вместе. — поделился исполнительный продюсер во вторник с Энди Коэном на SiriusXM Live. «Мне жаль слышать, что могут быть некоторые финансовые проблемы. TMZ сообщает, что они должны миллион долларов в IRS. Вчера немного написал Ким, послал свои соболезнования, потому что это грустная вещь. У них есть дети, и это было просто пара, которая казалась очень влюбленной»."
 
-    getWordsAndSentences(article).forEach { entity->
+    getWordsAndSentences(article)
+    .forEach { entity->
         println("Word: ${entity.word}")
         println("Sentence: ${entity.sentence.replace('\n',' ')}")
         println("")
@@ -57,6 +57,9 @@ fun getWordsAndSentences(article:String): ArrayList<VocabEntity>{
 
     val topWordsList = topWords.toList()
 
+    topWordsList.forEach {
+        println(it)
+    }
 
     val sentences = ArrayList<String>()
 
@@ -70,10 +73,20 @@ fun getWordsAndSentences(article:String): ArrayList<VocabEntity>{
             tempSentence = ""
         }
     }
+
+    //This could probably be done better
     sentences.forEach { sentence ->
-        topWords.forEach lit@ { word ->
-            if (sentence.contains(" $word ")){
-                vocabEntities.add(VocabEntity(word, sentence))
+        topWordsList.forEach lit@ { word ->
+            if (sentence.lowercase(Locale.getDefault()).contains(" $word ")){
+                var alreadyHere = false
+                if(vocabEntities.isNotEmpty()){
+                    vocabEntities.forEach lit@{entity ->
+                        if(entity.word == word) {
+                            alreadyHere = true
+                        }
+                    }
+                }
+                if(!alreadyHere)vocabEntities.add(VocabEntity(word, sentence))
                 return@lit
             }
         }
