@@ -1,20 +1,27 @@
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 fun main(args: Array<String>){
-    val article  = "The entertainment world is bidding farewell to MTV News. The network's heyday ended years ago but, for a time, it was the go-to source for interviews with leading artists and newsmakers, from Madonna to Prince.\n" +
+    //there are currently duplicates in the top words list
+    val article  = "Поклонники Bravo были шокированы в понедельник новостью о том, что Ким Золчак подала на развод с Кроем Бирманном. Зрители наблюдали за их историей любви по телевидению почти десять лет, но похоже, что нам нужен Энди Коэн и камера, потому что один эксперт по правовым вопросам ожидает, что это обернется ужасом.\n" +
+            " TMZ получил заявление Бирманна о разводе, и он добивается единоличной юридической и физической опеки над четырьмя детьми его и Золчака. Бывшая звезда «Настоящих домохозяек Атланты» в своем ходатайстве просила о первичной физической опеке и совместной юридической опеке. Знаменитый адвокат по разводам Шарлотта Кристиан сообщила Yahoo, что Бирманн отправляет сообщение с документом.\n" +
 
-            "The shutdown of MTV News comes as Paramount Global, the parent company of CBS, Nickelodeon, Comedy Central and Showtime announced today that it is laying off some 25% of its staff.\n" +
+            "«Требование о единоличной опеке указывает на то, что это может быть неприятный развод, поскольку большинство жалоб на развод в той или иной степени требуют совместной опеки», — объясняет Кристиан. Звезды Tardy for the Party являются родителями Кроя «KJ» Джаггера-младшего, 11 лет, Каша, 10 лет, и 9-летних близнецов, Кейна и Кайи.\n" +
 
-            "In addition to reports of a soft ad market, Paramount Global is doing considerable restructuring. Earlier this year, Showtime merged with MTV Entertainment Studios.\n" +
+            "«Чтобы получить единоличную опеку, один из родителей должен доказать, что наилучшие интересы ребенка будут соблюдены, если он будет проводить с одним родителем большую часть времени, при этом этот родитель будет принимать родительские решения, а другой родитель только навещать ребенка», — продолжает Кристиан. «Вообще говоря, для присуждения единоличной опеки один из родителей должен не желать или не иметь возможности быть родителем, а единоличная опека предоставляется редко».\n" +
 
-            "In an email to staff obtained by NPR, Chris McCarthy, president and CEO of Showtime/MTV Entertainment Studios and Paramount Media Networks, explained the decision-making behind the cuts. While touting the \"incredible track record of hits\" such as Yellowstone, South Park, and Yellowjackets, McCarthy wrote, \"despite this success in streaming, we continue to feel pressure from broader economic headwinds like many of our peers. To address this, our senior leaders in coordination with HR have been working together over the past few months to determine the optimal organization for the current and future needs of our business.\"\n" +
+            "Золчак является матерью двух дочерей от предыдущих отношений, влиятельных лиц Бриэль Бирманн, 26 лет, и Арианы Бирманн, 21 год. Бывший игрок Atlanta Falcons официально усыновил их много лет назад, но на них не влияют проблемы опеки, учитывая их возраст.\n" +
 
-            "\"This is a very sad day for a lot of friends and colleagues,\" wrote MTV News' Josh Horowitz on Instagram, \"Many great people lost their jobs. I was hired by MTV News 17 years ago. I'm so honored to have been a small part of its history. Wishing the best for the best in the business.\"\n" +
+            "Новость о разводе появилась сразу после сообщения TMZ о том, что у Золчака и Бирманна финансовые проблемы. По всей видимости, они задолжали 1,1 миллиона долларов в виде неуплаченных налогов, а в начале этого года их особняк в Джорджии был конфискован. В своем заявлении бывшая звезда НФЛ попросила Золчака сохранить все финансовые документы.\n" +
 
-            "The news comes on the heels of a disappointing first quarter earnings report for the corporation. During the earnings call this week, Paramount Global CEO Bob Bakish said the corporation was \"navigating a challenging and uncertain macroeconomic environment, and you see the impact of that on our financials, as the combination of peak streaming investment intersects with cyclical ad softness.\"\n" +
+            "«Если налоговый счет составлен на их обоих имена, они оба будут нести ответственность за уплату налогов», — объясняет Кристиан. «Налоговое управление США имеет преимущество перед решениями о разводе или любыми соглашениями между сторонами. Налоговая служба будет преследовать их обоих по отдельности из-за налогового долга, который будет нести они оба».\n" +
 
-            "A few days ago, MTV announced it was scaling back its annual awards show in the face of an ongoing writer's strike."
+            "Представитель Zolciak не прокомментировал ситуацию, когда связался с Yahoo. Ни она, ни Бирманн публично не говорили о разводе, но он, похоже, тонко упомянул об этом в Instagram.\n" +
+
+            "Биография Бирманн в Instagram гласит: «Муж. Отец шести идеальных манчкинов. Спортсмен. Вы можете использовать Google Me.\n" +
+            "Коэн, который хорошо знает бывшую пару, сказал, что был «очень удивлен» этой новостью.\n" +
+            "«Я был очень удивлен. Это была не та новость, которую я когда-либо ожидал получить. Они казались такими влюбленными и просто вместе. — поделился исполнительный продюсер во вторник с Энди Коэном на SiriusXM Live. «Мне жаль слышать, что могут быть некоторые финансовые проблемы. TMZ сообщает, что они должны миллион долларов в IRS. Вчера немного написал Ким, послал свои соболезнования, потому что это грустная вещь. У них есть дети, и это было просто пара, которая казалась очень влюбленной»."
 
     getWordsAndSentences(article).forEach { entity->
         println("Word: ${entity.word}")
@@ -26,8 +33,8 @@ fun main(args: Array<String>){
 
 fun getWordsAndSentences(article:String): ArrayList<VocabEntity>{
     val vocabEntities =  ArrayList<VocabEntity>()
-    val allWords =  article.replace(",","")
-        .replace(".","")
+    val specialCharacters = Regex("[~`!@#\$%^&*()_=+\\[{\\]}\\\\|;:'\",<.>/?«»“”‘’„“‚‘‛‟❛❜❝❞❮❯❰❱]")
+    val allWords =  article.replace(specialCharacters, "")
         .split(" ")
     val wordBank = HashMap<String, Int>()
     allWords.forEach { word ->
@@ -44,8 +51,9 @@ fun getWordsAndSentences(article:String): ArrayList<VocabEntity>{
             }
         }
     }
-    val sortedWords = wordBank.toList().sortedBy { (_, value) -> value}.reversed().toMap()
-    val topWords = sortedWords.keys.take(5)
+    val sortedWords = wordBank.toList().sortedBy { (_, value) -> value}.reversed()
+    val sortedArray = ArrayList(sortedWords)
+    val topWords = sortedWords.toMap().keys.take(5)
 
     val topWordsList = topWords.toList()
 
